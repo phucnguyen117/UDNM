@@ -1,0 +1,45 @@
+/* Bỏ dấu chấm đen */
+#primary-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex; /* cho các li nằm ngang */
+  gap: 20px;     /* khoảng cách giữa các menu */
+}
+
+/* Style cho link */
+#primary-menu li a {
+  text-decoration: none;  /* bỏ gạch chân */
+  color: #333;
+  font-weight: 600;
+}
+
+#primary-menu li a:hover {
+  color: #FFC107; /* vàng khi hover */
+}
+
+/* kich thuoc logo */
+.custom-logo {
+  height: 50px;
+}
+
+/* Banner carousel */
+.banner-img {
+    width: 100%;
+    height: 600px; /* chiều cao cố định cho tất cả ảnh */
+    object-fit: cover;   /* cắt ảnh cho vừa khung, không méo */
+    object-position: center; /* luôn lấy phần giữa ảnh */
+    filter: brightness(80%); /* làm mờ ảnh */
+}
+
+.carousel-container {
+  max-width: 1300px;   /* chiều rộng tối đa của slider */
+  margin: 30px auto;  /* căn giữa và thêm khoảng cách */
+  border-radius: 30px; /* bo góc */
+  overflow: hidden;   /* cắt phần ảnh thừa để giữ bo góc */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* đổ bóng nhẹ */
+}
+
+
+
+
