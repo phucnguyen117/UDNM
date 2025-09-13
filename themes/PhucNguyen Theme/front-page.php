@@ -32,7 +32,6 @@
 </div>
 
 
-
 <section class="latest-news container my-5">
   <h2 class="mb-4">Tin mới nhất</h2>
   <div class="row">

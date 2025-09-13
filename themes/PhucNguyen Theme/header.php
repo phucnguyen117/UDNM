@@ -8,7 +8,6 @@
 </head>
 
 <body <?php body_class(); ?>>
-
 <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm sticky-top">
   <div class="container">
     <a class="navbar-brand" href="<?php echo esc_url(home_url('/')); ?>">
@@ -56,7 +55,7 @@
       </div>
     </div>
 
-    <div class="vr ms-3"></div>
+    <div class="vr ms-3 d-none d-lg-block"></div>
     
       <!-- Icon tìm kiếm (bên phải menu) -->
       <button class="btn border-0 ms-3 d-none d-lg-block" type="button" data-bs-toggle="modal" data-bs-target="#searchModal">

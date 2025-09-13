@@ -2,7 +2,7 @@
         <div class="container text-center text-md-left">
             <div class="row text-center text-md-left">
                 <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3 text-start">
-                    <h5 class="text-uppercase mb-4 font-weight-bold text-warning">Công Ty</h5>
+                    <h5 class="text-uppercase mb-4 font-weight-bold text-warning"><?php the_custom_logo(); ?></h5>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi cumque illum cupiditate autem alias
                         fugit optio iste consequatur a voluptates sequi,sapiente</p>
                 </div>

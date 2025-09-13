@@ -111,4 +111,13 @@ function phucnguyen_customize_register($wp_customize) {
 }
 add_action('customize_register', 'phucnguyen_customize_register');
 
+
+//Điều chỉnh tìm kiếm
+function mytheme_search_only_posts($query) {
+    if ($query->is_search && $query->is_main_query() && !is_admin()) {
+        $query->set('post_type', 'post'); // Chỉ tìm trong bài viết
+    }
+}
+add_action('pre_get_posts', 'mytheme_search_only_posts');
+
 ?>
