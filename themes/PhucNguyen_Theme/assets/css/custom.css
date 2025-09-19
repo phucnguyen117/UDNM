@@ -368,14 +368,14 @@
 /* ngôn ngữ */
 @media (max-width: 768px) {
   .language-switcher select {
-    width: 90%;             /* rộng 90% thay vì full */
-    max-width: 500px;       /* giới hạn tối đa */
+    width: 100%;             /* rộng 100% thay vì full */
+    max-width: 800px;       /* giới hạn tối đa */
     margin: 0 auto;         /* căn giữa */
     display: block;         
     text-align: center;     
-    padding: 8px 12px;      
-    border-radius: 6px;     
-    border: 1px solid #ccc; 
+    padding: 8px 10px;      
+    border-radius: 8px;     
+    border: 3px solid #ccc; 
   }
 
   /* thêm khoảng cách bên trong container */

@@ -5,6 +5,7 @@ upgrade/
 cache/
 .github/
 themes/*
+README.md
 
 # Giữ lại
 !themes/PhucNguyen_Theme/
