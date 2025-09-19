@@ -1,0 +1,14 @@
+# Bỏ qua 
+languages/
+uploads/
+upgrade/
+cache/
+.github/
+themes/*
+
+# Giữ lại
+!themes/PhucNguyen_Theme/
+!themes/PhucNguyen_Theme/**
+
+!plugins/
+!plugins/**

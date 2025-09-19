@@ -1,0 +1,386 @@
+#primary-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex; /* cho các li nằm ngang */
+  gap: 20px;     /* khoảng cách giữa các menu */
+}
+
+/* Style cho link */
+#primary-menu li a {
+  text-decoration: none;  /* bỏ gạch chân */
+  color: #333;
+  font-weight: 600;
+}
+
+#primary-menu li a:hover {
+  color: #FFC107; /* vàng khi hover */
+}
+
+.btn-search:hover {
+    color: #FFC107; /* đổi màu icon thành vàng */
+    transform: scale(1.1); /* hiệu ứng phóng to nhẹ khi hover */
+}
+
+.dropdown-menu {
+    padding-left: 15px; /* khoảng cách cho dropdown-menu */
+}
+
+/*mũi tên dropdown */
+.navbar .dropdown-toggle::after {
+    margin-left: .4em;
+    vertical-align: .15em;
+    border-top: .4em solid;
+    border-right: .4em solid transparent;
+    border-left: .4em solid transparent;
+    transition: transform 0.3s ease;
+}
+
+/* Xoay mũi tên (desktop) */
+@media (min-width: 992px) {
+    .navbar .dropdown:hover .dropdown-toggle::after {
+        transform: rotate(180deg);
+    }
+}
+
+/* xổ xuống  cho submenu (desktop) */
+@media (min-width: 992px) {
+    .navbar .dropdown-menu {
+        display: none;
+    }
+    .navbar .dropdown:hover .dropdown-menu {
+        display: block;
+    }
+}
+
+
+
+/* kich thuoc logo */
+.custom-logo {
+    max-height: 50px;
+    height: 100%;
+    width: 100%;
+}
+
+/* Banner carousel */
+.banner-img {
+    width: 100%;
+    height: 550px; /* chiều cao cố định cho tất cả ảnh */
+    object-fit: cover;   /* cắt ảnh cho vừa khung, không méo */
+    object-position: center; /* luôn lấy phần giữa ảnh */
+    filter: brightness(80%); /* làm mờ ảnh */
+
+}
+
+
+/* Khi có admin bar WordPress */
+.admin-bar .sticky-top,
+.admin-bar .offcanvas{
+    top: 32px; /* chiều cao admin bar desktop */
+}
+
+/* Mobile navbar */
+@media screen and (max-width: 767px) {
+    .sticky-top {
+        position: relative !important;
+        top: auto !important;
+    }
+}
+
+/* Chu banner */
+.carousel-caption {
+    position: absolute;
+    top: 0;
+    left: 0; /* vẫn giữ vị trí bên trái */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start; /* canh trái */
+    align-items: center; /* căn giữa theo chiều dọc */
+    padding-left: 8%; /* khoảng cách từ mép trái → chỉnh nhỏ hơn hoặc lớn hơn tuỳ ý */
+    text-align: left;
+    color: #fff;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+}
+
+@media (max-width: 768px) {
+    .carousel-caption {
+        padding-left: 5%; /* khoảng cách nhỏ hơn trên màn hình nhỏ */
+        /* padding-top: 20%; */
+    }
+    .caption-content h2 {
+        font-size: 1.5rem;
+    }
+    .caption-content h3 {
+        font-size: 1rem;
+    }
+}
+
+
+
+/* tin tuc */
+.news-block {
+    width: 80%;
+    background: #f0e3b5; /* vàng nhạt */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    margin: 20px auto;
+    border-radius: 20px; /* bo góc */
+    position: relative;
+}
+
+.news-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px; /* khoảng cách giữa "Tin Tức" và danh mục */
+    flex-wrap: wrap; /* tự xuống dòng khi màn hình nhỏ */
+}
+
+.news-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin: 0; /* bỏ margin mặc định của h2 */
+    white-space: nowrap; /* tránh xuống dòng */
+}
+
+.news-categories {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.news-category {
+    padding: 8px 16px;
+    background: #f7d000;
+    color: #333;
+    text-decoration: none;
+    border-radius: 20px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.news-category:hover {
+    background: #ffcc00;
+    color: #000;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 12px rgba(0,0,0,0.2);
+}
+
+/* 📱 Tin tuc cho màn hình nhỏ */
+@media (max-width: 768px) {
+    .news-row {
+        flex-direction: column; /* stack dọc */
+        gap: 15px;
+    }
+    .news-title {
+        font-size: 20px; /* nhỏ hơn */
+    }
+    .news-category {
+        font-size: 14px;
+        padding: 6px 12px;
+    }
+    .news-block {
+        width: 100%;
+    }
+}
+@media (max-width: 480px) {
+    .news-title {
+        font-size: 18px;
+    }
+    .news-category {
+        font-size: 13px;
+        padding: 5px 10px;
+    }
+}
+
+.news-overlay {
+    position: absolute;
+    top: -40px;   /* nhô ra ngoài trên */
+    right: -120px;  /* nằm góc phải */
+    color: #000;
+    font-weight: bold;
+    padding: 8px 15px;
+    border-radius: 6px;
+    z-index: 10;
+}
+.news-overlay img {
+    width: 190px;     /* kích thước ảnh sticker */
+    height: auto;
+    transform: rotate(-20deg); /* xoay nghiêng sang trái */
+}
+
+
+/* Tin moi nhat */
+.latest-news {
+    background: #f8f5e9;
+    border-radius: 20px; /* bo góc */
+    max-width: 1350px;   /* chiều rộng tối đa của slider */
+    margin: 30px auto;  /* căn giữa và thêm khoảng cách */
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #333;
+    position: relative;
+    display: inline-block;
+    margin: 0 auto;           /* để block nằm giữa */
+    text-align: center;
+    padding-left: 15px;       /* tạo khoảng cách giữa gạch và chữ */
+}
+
+.section-title::after {
+    content: "";
+    width: 4px;               /* thanh dọc mảnh */
+    height: 100%;             /* cao bằng chữ */
+    background: #ff1100;
+    position: absolute;
+    left: 0;                  /* dính bên trái */
+    top: 0;
+    border-radius: 2px;
+}
+
+.latest-news .card {
+    transition: all 0.3s ease;
+}
+
+.latest-news .card:hover {
+    transform: translateY(-3px);
+}
+.latest-news .card img {
+    height: 200px;
+    object-fit: cover;
+}
+
+/* danh muc */
+.card img {
+    height: 200px;
+    object-fit: cover;
+}
+
+/* lienhe */
+.text-shadow-yellow {
+    text-shadow: 2px 2px 4px #f7d000; /* vàng nhạt */
+}
+
+
+/* Thongtin */
+.profile-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.profile-avatar {
+    margin-bottom: 20px;
+}
+
+.avatar-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #f7d000;
+}
+
+.profile-name {
+    font-size: 2em;
+    color: #333;
+    margin: 0;
+}
+
+.profile-content {
+    padding: 20px;
+}
+
+.profile-content h2 {
+    font-size: 1.5em;
+    color: #000000ff;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #f7d000;
+    padding-bottom: 10px;
+}
+
+.profile-info {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+.info-label {
+    font-weight: bold;
+    color: #333;
+    width: 150px;
+}
+
+.info-value {
+    color: #555;
+}
+
+@media (max-width: 600px) {
+    .profile-container {
+        margin: 20px;
+        padding: 15px;
+    }
+
+    .avatar-img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .profile-name {
+        font-size: 1.5em;
+    }
+
+    .info-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .info-label {
+        width: auto;
+        margin-bottom: 5px;
+    }
+}
+
+/* ngôn ngữ */
+@media (max-width: 768px) {
+  .language-switcher select {
+    width: 90%;             /* rộng 90% thay vì full */
+    max-width: 500px;       /* giới hạn tối đa */
+    margin: 0 auto;         /* căn giữa */
+    display: block;         
+    text-align: center;     
+    padding: 8px 12px;      
+    border-radius: 6px;     
+    border: 1px solid #ccc; 
+  }
+
+  /* thêm khoảng cách bên trong container */
+  .language-switcher {
+    padding: 0 100px;   /* đẩy vào 10px mỗi bên */
+  }
+}
+
