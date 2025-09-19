@@ -1,0 +1,32 @@
+name: test
+
+on:
+  push:
+    branches:
+      - main   # chạy khi push lên branch main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # B1: Checkout source
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # B2: Sync theme & plugins lên server qua SFTP
+      - name: Deploy to Server via SFTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: sftp
+          local-dir: ./    # chỉ định thư mục local (themes, plugins)
+          server-dir: /home/youruser/public_html/wp-content/   # đường dẫn trên server
+          exclude: |
+            **/.git*
+            **/.github/**
+            README.md
+            cache/
+            upgrade/
