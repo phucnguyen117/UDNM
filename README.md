@@ -36,35 +36,13 @@ Tự động chạy khi có đẩy (push) lên nhánh main.
 Chỉ triển khai các thư mục cần thiết: themes/PhucNguyen_Theme và plugins/.
 Không triển khai các tệp/thư mục bị bỏ qua (ví dụ: .gitignore, .github/, cache/,... nếu được loại trừ trong quy trình).
 
-🔐 Cấu hình Secrets để triển khai
-Cần thiết lập các GitHub Secrets sau để quy trình có thể truy cập máy chủ:
+🔐 Cấu hình Secrets (cho deploy)
+
+Bạn cần thiết lập các GitHub Secrets để workflow có thể truy cập server:
+
 Secret name	Mô tả
 FTP_SERVER	Địa chỉ IP hoặc domain server
 FTP_USERNAME	Tài khoản FTP / SFTP
 FTP_PASSWORD	Mật khẩu tương ứng
 REMOTE_DIR	Đường dẫn nơi deploy (ví dụ wp-content/)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Tên SecretMô tảFTP_SERVERĐịa chỉ IP hoặc tên miền của máy chủFTP_USERNAMETên tài khoản FTP/SFTPFTP_PASSWORDMật khẩu tương ứngREMOTE_DIRĐường dẫn triển khai (ví dụ: wp-content/)
