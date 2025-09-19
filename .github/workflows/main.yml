@@ -1,32 +1,83 @@
-name: test
+name: WordPress
 
 on:
   push:
-    branches:
-      - main   # chạy khi push lên branch main
+    branches: [ "main" ]
+  pull_request:
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: wordpress
+          MYSQL_USER: wp
+          MYSQL_PASSWORD: wp
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -u root --password=root"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
     steps:
-      # B1: Checkout source
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # B2: Sync theme & plugins lên server qua SFTP
-      - name: Deploy to Server via SFTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
         with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          protocol: sftp
-          local-dir: ./    # chỉ định thư mục local (themes, plugins)
-          server-dir: /home/youruser/public_html/wp-content/   # đường dẫn trên server
-          exclude: |
-            **/.git*
-            **/.github/**
-            README.md
-            cache/
-            upgrade/
+          php-version: '8.1'
+          extensions: mysqli
+
+      - name: Install WP-CLI
+        run: |
+          curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+          chmod +x wp-cli.phar
+          sudo mv wp-cli.phar /usr/local/bin/wp
+
+      - name: Download WordPress Core (latest)
+        run: |
+          wp core download --path=wordpress --allow-root
+
+      - name: Copy wp-content files into WordPress
+        run: |
+          mkdir -p wordpress/wp-content
+          if [ -d "themes" ]; then cp -r themes wordpress/wp-content/; fi
+          if [ -d "plugins" ]; then cp -r plugins wordpress/wp-content/; fi
+          if [ -d "uploads" ]; then cp -r uploads wordpress/wp-content/; fi
+
+      - name: Create wp-config.php
+        run: |
+          wp config create --path=wordpress \
+            --dbname=wordpress \
+            --dbuser=wp \
+            --dbpass=wp \
+            --dbhost=127.0.0.1 \
+            --skip-check --allow-root
+
+      - name: Install WordPress
+        run: |
+          wp core install --path=wordpress \
+            --url="http://localhost" \
+            --title="CI Test" \
+            --admin_user=admin \
+            --admin_password=admin \
+            --admin_email=test@example.com \
+            --skip-email --allow-root
+
+      - name: Activate All Themes (optional)
+        run: |
+          for d in wordpress/wp-content/themes/*/ ; do
+            theme=$(basename "$d")
+            wp theme activate "$theme" --path=wordpress --allow-root || true
+          done
+
+      - name: Run PHP Lint for wp-content
+        run: |
+          find themes plugins -name "*.php" -exec php -l {} \; || true
