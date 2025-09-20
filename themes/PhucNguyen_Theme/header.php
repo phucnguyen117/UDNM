@@ -47,7 +47,7 @@
             ?>
 
         <hr class="d-lg-none">
-          <div class="language-switcher py-2">
+          <div class="language-switcher py-2 ms-2">
               <div class="container">
                   <div class="dropdown d-inline-block">
                       <?php

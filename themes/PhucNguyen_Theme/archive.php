@@ -22,9 +22,7 @@
                                 <?php endif; ?>
                                 <div class="card-body d-flex flex-column">
                                     <h5 class="card-title mb-2">
-                                        <a href="<?php the_permalink(); ?>" class="text-decoration-none text-dark fw-bold">
-                                            <?php the_title(); ?>
-                                        </a>
+                                        <?php the_title(); ?>
                                     </h5>
                                     <div class="mb-2 text-muted small">
                                         <i class="bi bi-calendar"></i> <?php echo get_the_date(); ?> &nbsp;|&nbsp;
@@ -39,6 +37,7 @@
                                     <p class="card-text text-muted flex-grow-1">
                                         <?php echo wp_trim_words(get_the_excerpt(), 20); ?>
                                     </p>
+                                    <a href="<?php the_permalink(); ?>" class="stretched-link"></a>
                                 </div>
                             </div>
                         </div>

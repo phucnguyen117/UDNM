@@ -27,7 +27,7 @@ get_header();
     </div>
 
     <div class="profile-content">
-        <h2><?php _e('Thông Tin Cá Nhân', 'phucnguyentheme'); ?></h2>
+        <h2><?php _e('Thông Tin Người Làm Web', 'phucnguyentheme'); ?></h2>
         <div class="profile-info">
             <div class="info-item">
                 <span class="info-label"><?php _e('Họ và Tên', 'phucnguyentheme'); ?>:</span>

@@ -75,7 +75,7 @@ get_header(); ?>
 </div>
 </div>
 
-<div class="news-block">
+<div class="news-block mb-5">
     <div class="container news-row">
         <h2 class="news-title"><?php _e('Tin Tức', 'phucnguyentheme'); ?></h2>
             <div class="vr d-none d-lg-block"></div>
@@ -103,14 +103,20 @@ get_header(); ?>
         </div>
     </div>
 
-        <!-- overlay nằm ngoài nhưng đè lên -->
+    <!-- Sticker -->
     <div class="news-overlay d-none d-lg-block">
             <img src="<?php echo get_template_directory_uri(); ?>/assets/image/anh2.png"  alt="Sticker" />
     </div>
 </div>
 
 
-<section class="latest-news py-5 mt-4">
+<section class="latest-news py-5 mt-4 position-relative">
+    
+    <!-- Sticker -->
+    <div class="news-overlay2 d-none d-lg-block">
+        <img src="<?php echo get_template_directory_uri(); ?>/assets/image/anh3.png" alt="Sticker">
+    </div>
+
     <div class="container">
         <h2 class="section-title mb-5"><?php _e('Tin Mới Nhất', 'phucnguyentheme'); ?></h2>
         <div class="row">
@@ -163,7 +169,13 @@ get_header(); ?>
 </section>
 
 
-<section class="latest-news py-5 mt-4">
+<section class="latest-news py-5 mt-4 position-relative">
+
+    <!-- Sticker -->
+    <div class="news-overlay2 d-none d-lg-block">
+        <img src="<?php echo get_template_directory_uri(); ?>/assets/image/anh3.png" alt="Sticker">
+    </div>
+
     <div class="container">
         <h2 class="section-title mb-5"><?php esc_html_e('Tin Nổi Bật', 'phucnguyentheme'); ?></h2>
         <div class="row">
@@ -215,7 +227,13 @@ get_header(); ?>
     </div>
 </section>
 
-<section class="latest-news py-5 mt-4">
+<section class="latest-news py-5 mt-4 position-relative">
+
+    <!-- Sticker -->
+    <div class="news-overlay2 d-none d-lg-block">
+        <img src="<?php echo get_template_directory_uri(); ?>/assets/image/anh3.png" alt="Sticker">
+    </div>
+
     <div class="container">
         <h2 class="section-title mb-4 text-center">
             <?php _e('Video Nổi Bật', 'phucnguyentheme'); ?>
