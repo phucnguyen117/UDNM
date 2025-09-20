@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name: From Liên Hệ Floating
- * Description: Plugin tạo form liên hệ floating đẹp mắt với màu vàng, bao gồm số điện thoại, Messenger, Zalo (có thể thu gọn), và nút back-to-top. Sử dụng Bootstrap Icons và icon Zalo từ Icons8.
- * Version: 1.2
+ * Plugin Name: Form Liên Hệ Floating
+ * Description: Plugin tạo form liên hệ floating đẹp mắt với màu vàng, ở bên phải màn hình, bao gồm số điện thoại, Messenger, Zalo (có thể thu gọn), và nút back-to-top. Sử dụng Bootstrap Icons và icon Zalo từ Icons8.
+ * Version: 1.4
  * Author: PhucNguyen
  * License: GPL2
  */
@@ -16,11 +16,11 @@ if (!defined('ABSPATH')) {
 function fcw_add_admin_menu() {
     add_menu_page(
         'Floating Contact Settings', // Tiêu đề trang
-        'From Liên Hệ',            // Tên menu
-        'manage_options',            // Quyền truy cập
-        'fcw_settings',              // Slug
-        'fcw_settings_page',         // Hàm render trang
-        'dashicons-phone'            // Icon menu
+        'Form Liên Hệ',             // Tên menu
+        'manage_options',           // Quyền truy cập
+        'fcw_settings',             // Slug
+        'fcw_settings_page',        // Hàm render trang
+        'dashicons-phone'           // Icon menu
     );
 }
 add_action('admin_menu', 'fcw_add_admin_menu');
@@ -76,22 +76,23 @@ function fcw_settings_page() {
 
 // Enqueue CSS và JS cho frontend
 function fcw_enqueue_assets() {
-    // Enqueue Bootstrap Icons
-    wp_enqueue_style('bootstrap-icons', 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css');
+    // Enqueue Bootstrap Icons với handle riêng
+    wp_enqueue_style('fcw-bootstrap-icons', 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css', array(), '1.10.5');
 
-    // CSS tùy chỉnh cho plugin (vị trí cũ: floating-contact dưới cùng, back-to-top trên)
+    // CSS tùy chỉnh với phạm vi giới hạn
     $css = "
-        #fcw-floating-contact {
+        /* Chỉ áp dụng cho plugin */
+        .fcw-container {
             position: fixed;
-            bottom: 20px; /* Vị trí cũ: dưới cùng */
-            right: 20px;
-            z-index: 9999;
+            bottom: 20px;
+            right: 20px; /* Trở lại bên phải */
+            z-index: 10000;
             display: flex;
             flex-direction: column;
             align-items: flex-end;
         }
-        #fcw-toggle-btn {
-            background-color: #FFD700; /* Màu vàng */
+        .fcw-toggle-btn {
+            background-color: #FFD700;
             color: #000;
             border: none;
             border-radius: 50%;
@@ -102,11 +103,11 @@ function fcw_enqueue_assets() {
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
             transition: all 0.3s ease;
         }
-        #fcw-toggle-btn:hover {
+        .fcw-toggle-btn:hover {
             background-color: #E5C100;
             transform: scale(1.05);
         }
-        #fcw-contact-options {
+        .fcw-contact-options {
             display: none;
             flex-direction: column;
             margin-bottom: 15px;
@@ -116,6 +117,7 @@ function fcw_enqueue_assets() {
             padding: 15px;
             gap: 12px;
             width: 200px;
+            text-align: center;
         }
         .fcw-contact-btn {
             background-color: #FFD700;
@@ -134,16 +136,16 @@ function fcw_enqueue_assets() {
         }
         .fcw-contact-btn:hover {
             background-color: #E5C100;
-            transform: translateX(-5px);
+            transform: translateX(-5px); /* Dịch sang trái khi hover */
         }
         .fcw-contact-btn img {
             width: 20px;
             height: 20px;
         }
-        #fcw-back-to-top {
+        .fcw-back-to-top {
             position: fixed;
-            bottom: 80px; /* Trên floating-contact */
-            right: 20px;
+            bottom: 80px;
+            right: 20px; /* Trở lại bên phải */
             background-color: #FFD700;
             color: #000;
             border: none;
@@ -155,37 +157,41 @@ function fcw_enqueue_assets() {
             display: none;
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
             transition: all 0.3s ease;
-            z-index: 9998;
+            z-index: 9999;
         }
-        #fcw-back-to-top:hover {
+        .fcw-back-to-top:hover {
             background-color: #E5C100;
             transform: scale(1.05);
         }
     ";
-    wp_add_inline_style('bootstrap-icons', $css);
+    wp_add_inline_style('fcw-bootstrap-icons', $css);
 
     // JS tùy chỉnh
     $js = "
         document.addEventListener('DOMContentLoaded', function() {
-            const toggleBtn = document.getElementById('fcw-toggle-btn');
-            const options = document.getElementById('fcw-contact-options');
-            const backToTop = document.getElementById('fcw-back-to-top');
+            const toggleBtn = document.querySelector('.fcw-toggle-btn');
+            const options = document.querySelector('.fcw-contact-options');
+            const backToTop = document.querySelector('.fcw-back-to-top');
 
-            toggleBtn.addEventListener('click', function() {
-                options.style.display = options.style.display === 'none' ? 'flex' : 'none';
-            });
+            if (toggleBtn && options) {
+                toggleBtn.addEventListener('click', function() {
+                    options.style.display = options.style.display === 'none' ? 'flex' : 'none';
+                });
+            }
 
             window.addEventListener('scroll', function() {
                 if (window.scrollY > 100) {
-                    backToTop.style.display = 'block';
+                    if (backToTop) backToTop.style.display = 'block';
                 } else {
-                    backToTop.style.display = 'none';
+                    if (backToTop) backToTop.style.display = 'none';
                 }
             });
 
-            backToTop.addEventListener('click', function() {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
+            if (backToTop) {
+                backToTop.addEventListener('click', function() {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
         });
     ";
     wp_add_inline_script('jquery', $js);
@@ -197,22 +203,26 @@ function fcw_add_floating_contact() {
     $phone = get_option('fcw_phone_number');
     $messenger = get_option('fcw_messenger_link');
     $zalo = get_option('fcw_zalo_link');
-    ?>
-    <div id="fcw-floating-contact">
-        <div id="fcw-contact-options">
-            <?php if ($phone) : ?>
-                <a href="tel:<?php echo esc_attr($phone); ?>" class="fcw-contact-btn"><i class="bi bi-telephone-fill"></i> Gọi Điện</a>
-            <?php endif; ?>
-            <?php if ($messenger) : ?>
-                <a href="<?php echo esc_url($messenger); ?>" class="fcw-contact-btn" target="_blank"><i class="bi bi-facebook"></i> Messenger</a>
-            <?php endif; ?>
-            <?php if ($zalo) : ?>
-                <a href="<?php echo esc_url($zalo); ?>" class="fcw-contact-btn" target="_blank"><img src="https://img.icons8.com/?size=100&id=82445&format=png&color=000000" alt="Zalo" style="width:20px; height:20px;"> Zalo</a>
-            <?php endif; ?>
+
+    // Chỉ hiển thị nếu có ít nhất một option liên hệ
+    if ($phone || $messenger || $zalo) {
+        ?>
+        <div class="fcw-container">
+            <div class="fcw-contact-options">
+                <?php if ($phone) : ?>
+                    <a href="tel:<?php echo esc_attr($phone); ?>" class="fcw-contact-btn"><i class="bi bi-telephone-fill"></i> Gọi Điện</a>
+                <?php endif; ?>
+                <?php if ($messenger) : ?>
+                    <a href="<?php echo esc_url($messenger); ?>" class="fcw-contact-btn" target="_blank"><i class="bi bi-messenger"></i> Messenger</a>
+                <?php endif; ?>
+                <?php if ($zalo) : ?>
+                    <a href="<?php echo esc_url($zalo); ?>" class="fcw-contact-btn" target="_blank"><img src="https://img.icons8.com/?size=100&id=82445&format=png&color=000000" alt="Zalo" style="width:20px; height:20px;"> Zalo</a>
+                <?php endif; ?>
+            </div>
+            <button class="fcw-toggle-btn"><i class="bi bi-chat-dots-fill"></i></button>
         </div>
-        <button id="fcw-toggle-btn"><i class="bi bi-chat-dots-fill"></i></button>
-    </div>
-    <button id="fcw-back-to-top"><i class="bi bi-arrow-up"></i></button>
-    <?php
+        <button class="fcw-back-to-top"><i class="bi bi-arrow-up"></i></button>
+        <?php
+    }
 }
 add_action('wp_footer', 'fcw_add_floating_contact');

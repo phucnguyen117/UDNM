@@ -215,5 +215,57 @@ get_header(); ?>
     </div>
 </section>
 
+<section class="latest-news py-5 mt-4">
+    <div class="container">
+        <h2 class="section-title mb-4 text-center">
+            <?php _e('Video Nổi Bật', 'phucnguyentheme'); ?>
+        </h2>
+        <?php
+        $video_url = get_field('home_video');
+
+        if ($video_url):
+            $embed_url = '';
+
+            // Link watch?v=
+            if (strpos($video_url, 'watch?v=') !== false) {
+                $parts = parse_url($video_url);
+                parse_str($parts['query'], $query);
+                $video_id = $query['v'] ?? '';
+                $list_id = $query['list'] ?? '';
+                $embed_url = 'https://www.youtube.com/embed/' . $video_id;
+                if ($list_id) {
+                    $embed_url .= '?list=' . $list_id;
+                }
+            }
+            // Link rút gọn youtu.be
+            elseif (strpos($video_url, 'youtu.be/') !== false) {
+                $parts = parse_url($video_url);
+                $video_id = ltrim($parts['path'], '/');
+                parse_str($parts['query'] ?? '', $query);
+                $list_id = $query['list'] ?? '';
+                $embed_url = 'https://www.youtube.com/embed/' . $video_id;
+                if ($list_id) {
+                    $embed_url .= '?list=' . $list_id;
+                }
+            }
+        ?>
+            <div class="video-wrapper mx-auto" style="max-width: 700px;">
+                <div class="ratio ratio-16x9 shadow-lg rounded-3 overflow-hidden">
+                    <iframe 
+                        src="<?php echo esc_url($embed_url); ?>" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        <?php else: ?>
+            <p class="text-center text-muted">
+                <?php _e('Chưa có video được chọn.', 'phucnguyentheme'); ?>
+            </p>
+        <?php endif; ?>
+    </div>
+</section>
+
 
 <?php get_footer(); ?>
