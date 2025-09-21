@@ -21,9 +21,11 @@
                                     </a>
                                 <?php endif; ?>
                                 <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title mb-2">
+                                <h3 class="card-title h5 mb-2">
+                                    <a href="<?php the_permalink(); ?>" class="text-decoration-none text-dark">
                                         <?php the_title(); ?>
-                                    </h5>
+                                    </a>
+                                </h3>
                                     <div class="mb-2 text-muted small">
                                         <i class="bi bi-calendar"></i> <?php echo get_the_date(); ?> &nbsp;|&nbsp;
                                         <i class="bi bi-folder"></i>
@@ -37,7 +39,10 @@
                                     <p class="card-text text-muted flex-grow-1">
                                         <?php echo wp_trim_words(get_the_excerpt(), 20); ?>
                                     </p>
-                                    <a href="<?php the_permalink(); ?>" class="stretched-link"></a>
+                                    <a href="<?php the_permalink(); ?>" 
+                                    class="stretched-link" 
+                                    aria-label="Xem chi tiết bài viết: <?php the_title_attribute(); ?>">
+                                    </a>
                                 </div>
                             </div>
                         </div>

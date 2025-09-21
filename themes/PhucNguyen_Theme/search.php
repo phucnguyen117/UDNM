@@ -31,7 +31,10 @@ get_header(); ?>
                                     <a href="<?php the_permalink(); ?>" class="text-dark text-decoration-none"><?php the_title(); ?></a>
                                 </h5>
                                 <p class="card-text text-muted flex-grow-1"><?php echo wp_trim_words(get_the_excerpt(), 25); ?></p>
-                                <a href="<?php the_permalink(); ?>" class="stretched-link"></a>
+                                <a href="<?php the_permalink(); ?>" 
+                                class="stretched-link" 
+                                aria-label="Xem chi tiết bài viết: <?php the_title_attribute(); ?>">
+                                </a>
                             </div>
                             <div class="card-footer bg-transparent border-top-0 text-muted small d-flex justify-content-between align-items-center">
                                 <span><i class="bi bi-person-circle me-1"></i><?php the_author(); ?></span>

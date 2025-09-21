@@ -4,6 +4,7 @@
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="<?php echo get_the_excerpt(); ?>">
     <?php wp_head(); ?>
 </head>
 
@@ -14,6 +15,7 @@
         <?php 
             if (has_custom_logo()) {
                 the_custom_logo();
+                echo '<span class="visually-hidden">' . get_bloginfo('name') . ' - Trang chủ</span>';
             } else { ?>
                 <span class="site-title fw-bold"><?php bloginfo('name'); ?></span>
                 <small class="site-description text-muted"><?php bloginfo('description'); ?></small>
@@ -22,7 +24,7 @@
 
     <!-- Nút toggle -->
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-      aria-controls="offcanvasNavbar">
+      aria-controls="offcanvasNavbar" aria-label="Mở menu điều hướng">
       <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -50,6 +52,9 @@
           <div class="language-switcher py-2 ms-2">
               <div class="container">
                   <div class="dropdown d-inline-block">
+                      <label for="lang_choice_1" class="visually-hidden">
+                          <?php _e('Chọn ngôn ngữ', 'textdomain'); ?>
+                      </label>
                       <?php
                       pll_the_languages(array(
                           'dropdown' => 1,
@@ -76,7 +81,7 @@
     <div class="vr ms-3 d-none d-lg-block"></div>
     
       <!-- Icon tìm kiếm (bên phải menu) -->
-      <button class="btn border-0 ms-2 d-none d-lg-block btn-search" type="button" data-bs-toggle="modal" data-bs-target="#searchModal">
+      <button class="btn border-0 ms-2 d-none d-lg-block btn-search" type="button" data-bs-toggle="modal" data-bs-target="#searchModal" aria-label="Mở tìm kiếm">
         <i class="bi bi-search"></i>
       </button>
 

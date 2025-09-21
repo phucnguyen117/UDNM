@@ -219,9 +219,9 @@ function fcw_add_floating_contact() {
                     <a href="<?php echo esc_url($zalo); ?>" class="fcw-contact-btn" target="_blank"><img src="https://img.icons8.com/?size=100&id=82445&format=png&color=000000" alt="Zalo" style="width:20px; height:20px;"> Zalo</a>
                 <?php endif; ?>
             </div>
-            <button class="fcw-toggle-btn"><i class="bi bi-chat-dots-fill"></i></button>
+            <button class="fcw-toggle-btn" aria-label="Mở menu"><i class="bi bi-chat-dots-fill"></i></button>
         </div>
-        <button class="fcw-back-to-top"><i class="bi bi-arrow-up"></i></button>
+        <button class="fcw-back-to-top" aria-label="Quay lại đầu trang"><i class="bi bi-arrow-up"></i></button>
         <?php
     }
 }

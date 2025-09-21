@@ -104,7 +104,7 @@ get_header(); ?>
     </div>
 
     <!-- Sticker -->
-    <div class="news-overlay d-none d-lg-block">
+    <div class="news-overlay d-none d-lg-block" alt="Sticker trang trí">
             <img src="<?php echo get_template_directory_uri(); ?>/assets/image/anh2.png"  alt="Sticker" />
     </div>
 </div>
@@ -113,7 +113,7 @@ get_header(); ?>
 <section class="latest-news py-5 mt-4 position-relative">
     
     <!-- Sticker -->
-    <div class="news-overlay2 d-none d-lg-block">
+    <div class="news-overlay2 d-none d-lg-block" alt="Sticker trang trí">
         <img src="<?php echo get_template_directory_uri(); ?>/assets/image/anh3.png" alt="Sticker">
     </div>
 
@@ -137,7 +137,11 @@ get_header(); ?>
                                 <?php the_post_thumbnail('medium', ['class' => 'card-img-top rounded-top']); ?>
                             <?php endif; ?>
                             <div class="card-body">
-                                <h5 class="card-title"><?php the_title(); ?></h5>
+                            <h3 class="card-title h5">
+                                <a href="<?php the_permalink(); ?>" class="text-decoration-none text-dark">
+                                    <?php the_title(); ?>
+                                </a>
+                            </h3>
                                 <p class="card-text">
                                     <?php echo wp_trim_words(get_the_excerpt(), 15, '...'); ?>
                                 </p>
@@ -153,7 +157,10 @@ get_header(); ?>
                                         ?>
                                     </span>
                                 </p>
-                                <a href="<?php the_permalink(); ?>" class="stretched-link"></a>                                
+                                <a href="<?php the_permalink(); ?>" 
+                                class="stretched-link" 
+                                aria-label="Xem chi tiết bài viết: <?php the_title_attribute(); ?>">
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -172,7 +179,7 @@ get_header(); ?>
 <section class="latest-news py-5 mt-4 position-relative">
 
     <!-- Sticker -->
-    <div class="news-overlay2 d-none d-lg-block">
+    <div class="news-overlay2 d-none d-lg-block" alt="Sticker trang trí">
         <img src="<?php echo get_template_directory_uri(); ?>/assets/image/anh3.png" alt="Sticker">
     </div>
 
@@ -212,7 +219,10 @@ get_header(); ?>
                                         ?>
                                     </span>
                                 </p>
-                                <a href="<?php the_permalink(); ?>" class="stretched-link"></a>
+                                <a href="<?php the_permalink(); ?>" 
+                                class="stretched-link" 
+                                aria-label="Xem chi tiết bài viết: <?php the_title_attribute(); ?>">
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -230,7 +240,7 @@ get_header(); ?>
 <section class="latest-news py-5 mt-4 position-relative">
 
     <!-- Sticker -->
-    <div class="news-overlay2 d-none d-lg-block">
+    <div class="news-overlay2 d-none d-lg-block" alt="Sticker trang trí">
         <img src="<?php echo get_template_directory_uri(); ?>/assets/image/anh3.png" alt="Sticker">
     </div>
 
@@ -250,7 +260,7 @@ get_header(); ?>
                 parse_str($parts['query'], $query);
                 $video_id = $query['v'] ?? '';
                 $list_id = $query['list'] ?? '';
-                $embed_url = 'https://www.youtube.com/embed/' . $video_id;
+                $embed_url = 'https://www.youtube-nocookie.com/embed/' . $video_id;
                 if ($list_id) {
                     $embed_url .= '?list=' . $list_id;
                 }
@@ -261,16 +271,23 @@ get_header(); ?>
                 $video_id = ltrim($parts['path'], '/');
                 parse_str($parts['query'] ?? '', $query);
                 $list_id = $query['list'] ?? '';
-                $embed_url = 'https://www.youtube.com/embed/' . $video_id;
+                $embed_url = 'https://www.youtube-nocookie.com/embed/' . $video_id;
                 if ($list_id) {
                     $embed_url .= '?list=' . $list_id;
                 }
             }
-        ?>
+            // Đặt title cho iframe: ưu tiên tiêu đề trang, fallback mặc định
+            $iframe_title = sprintf(
+                /* translators: %s: site name */
+                __('Video nổi bật từ %s', 'phucnguyentheme'),
+                get_bloginfo('name')
+            );
+            ?>
             <div class="video-wrapper mx-auto" style="max-width: 700px;">
                 <div class="ratio ratio-16x9 shadow-lg rounded-3 overflow-hidden">
                     <iframe 
                         src="<?php echo esc_url($embed_url); ?>" 
+                        title="<?php echo esc_attr($iframe_title); ?>"
                         frameborder="0" 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                         allowfullscreen>

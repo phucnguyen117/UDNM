@@ -167,4 +167,5 @@ function phucnguyentheme_load_textdomain() {
 }
 add_action('after_setup_theme', 'phucnguyentheme_load_textdomain');
 
+
 ?>

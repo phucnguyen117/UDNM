@@ -2,8 +2,18 @@
         <div class="container text-center text-md-left">
             <div class="row text-center text-md-left">
                 <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3 text-start">
-                    <h5 class="text-uppercase mb-4 font-weight-bold text-warning"><?php the_custom_logo(); ?></h5>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi cumque illum cupiditate autem alias</p>
+                <div class="mb-4">
+                    <?php 
+                        if ( function_exists( 'the_custom_logo' ) ) {
+                            $custom_logo_id = get_theme_mod( 'custom_logo' );
+                            $logo = wp_get_attachment_image_src( $custom_logo_id , 'full' );
+                            if ( has_custom_logo() ) {
+                                echo '<img src="'. esc_url( $logo[0] ) .'" width="'. esc_attr( $logo[1] ) .'" height="'. esc_attr( $logo[2] ) .'" alt="'. get_bloginfo( 'name' ) .'">';
+                            }
+                        }
+                    ?>
+                </div>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi cumque illum cupiditate autem alias</p>
                 </div>
                 <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3 text-start">
                     <h5 class="text-uppercase mb-4 font-weight-bold text-warning"><?php _e('Tin mới nhất', 'phucnguyentheme'); ?></h5>
@@ -84,22 +94,22 @@
 
                             <?php if(get_theme_mod('footer_facebook')): ?>
                             <li class="list-inline-item">
-                                <a href="<?php echo esc_url(get_theme_mod('footer_facebook')); ?>" class="btn-floating btn-sm text-white" style="font-size: 23px;" target="_blank"><i
-                                        class="bi bi-facebook"></i></a>
+                                <a href="<?php echo esc_url(get_theme_mod('footer_facebook')); ?>" class="btn-floating btn-sm text-white" style="font-size: 23px;" target="_blank" aria-label="Facebook"><i
+                                class="bi bi-facebook"></i></a>
                             </li>
                             <?php endif; ?>
 
                             <?php if(get_theme_mod('footer_twitter')): ?>
                             <li class="list-inline-item">
-                                <a href="<?php echo esc_url(get_theme_mod('footer_twitter')); ?>" class="btn-floating btn-sm text-white" style="font-size: 23px;" target="_blank"><i
-                                        class="bi bi-twitter-x"></i></a>
+                                <a href="<?php echo esc_url(get_theme_mod('footer_twitter')); ?>" class="btn-floating btn-sm text-white" style="font-size: 23px;" target="_blank" aria-label="Twitter"><i
+                                class="bi bi-twitter-x"></i></a>
                             </li>
                             <?php endif; ?>
 
                             <?php if(get_theme_mod('footer_threads')): ?>
                             <li class="list-inline-item">
-                                <a href="<?php echo esc_url(get_theme_mod('footer_threads')); ?>" class="btn-floating btn-sm text-white" style="font-size: 23px;" target="_blank"><i
-                                        class="bi bi-threads"></i></a>
+                                <a href="<?php echo esc_url(get_theme_mod('footer_threads')); ?>" class="btn-floating btn-sm text-white" style="font-size: 23px;" target="_blank" aria-label="Threads"><i
+                                class="bi bi-threads"></i></a>
                             </li>
                             <?php endif; ?>
 
