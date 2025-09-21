@@ -203,7 +203,11 @@ get_header(); ?>
                                 <?php the_post_thumbnail('medium', ['class' => 'card-img-top rounded-top']); ?>
                             <?php endif; ?>
                             <div class="card-body">
-                                <h5 class="card-title"><?php the_title(); ?></h5>
+                            <h3 class="card-title h5">
+                                <a href="<?php the_permalink(); ?>" class="text-decoration-none text-dark">
+                                    <?php the_title(); ?>
+                                </a>
+                            </h3>                                
                                 <p class="card-text">
                                     <?php echo wp_trim_words(get_the_excerpt(), 15, '...'); ?>
                                 </p>
@@ -288,6 +292,7 @@ get_header(); ?>
                     <iframe 
                         src="<?php echo esc_url($embed_url); ?>" 
                         title="<?php echo esc_attr($iframe_title); ?>"
+                        loading="lazy"
                         frameborder="0" 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                         allowfullscreen>

@@ -16,7 +16,7 @@
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi cumque illum cupiditate autem alias</p>
                 </div>
                 <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3 text-start">
-                    <h5 class="text-uppercase mb-4 font-weight-bold text-warning"><?php _e('Tin mới nhất', 'phucnguyentheme'); ?></h5>
+                    <h2 class="h5 text-uppercase mb-4 font-weight-bold text-warning"><?php _e('Tin mới nhất', 'phucnguyentheme'); ?></h2>
                     <?php
                         $latest_posts = new WP_Query(array(
                             'posts_per_page' => 2, // Lấy 2 bài viết
@@ -40,7 +40,7 @@
                     </div>
 
                 <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3 text-start">
-                    <h5 class="text-uppercase mb-4 font-weight-bold text-warning"><?php _e('Tin nổi bật', 'phucnguyentheme'); ?></h5>
+                    <h2 class="h5 text-uppercase mb-4 font-weight-bold text-warning"><?php _e('Tin nổi bật', 'phucnguyentheme'); ?></h2>
                     <?php
                         $featured_posts = new WP_Query(array(
                             'posts_per_page' => 2, // tăng lên 3 bài để cân đối
@@ -65,7 +65,7 @@
 
 
                 <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3 text-start">
-                    <h5 class="text-uppercase mb-4 font-weight-bold text-warning"><?php _e('Thông tin', 'phucnguyentheme'); ?></h5>
+                    <h2 class="h5 text-uppercase mb-4 font-weight-bold text-warning"><?php _e('Thông tin', 'phucnguyentheme'); ?></h2>
                     <?php if( get_theme_mod('footer_email') ): ?>
                         <p><i class="bi bi-envelope-fill"></i> <?php echo esc_html( get_theme_mod('footer_email') ); ?></p>
                     <?php endif; ?>
