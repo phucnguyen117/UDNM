@@ -248,6 +248,7 @@ get_header(); ?>
         <img src="<?php echo get_template_directory_uri(); ?>/assets/image/anh3.png" alt="Sticker">
     </div>
 
+    <!-- video -->
     <div class="container">
         <h2 class="section-title mb-4 text-center">
             <?php _e('Video Nổi Bật', 'phucnguyentheme'); ?>
@@ -256,7 +257,8 @@ get_header(); ?>
         $video_url = get_field('home_video');
 
         if ($video_url):
-            $embed_url = '';
+            $video_id = '';
+            $list_id = '';
 
             // Link watch?v=
             if (strpos($video_url, 'watch?v=') !== false) {
@@ -264,10 +266,6 @@ get_header(); ?>
                 parse_str($parts['query'], $query);
                 $video_id = $query['v'] ?? '';
                 $list_id = $query['list'] ?? '';
-                $embed_url = 'https://www.youtube-nocookie.com/embed/' . $video_id;
-                if ($list_id) {
-                    $embed_url .= '?list=' . $list_id;
-                }
             }
             // Link rút gọn youtu.be
             elseif (strpos($video_url, 'youtu.be/') !== false) {
@@ -275,36 +273,38 @@ get_header(); ?>
                 $video_id = ltrim($parts['path'], '/');
                 parse_str($parts['query'] ?? '', $query);
                 $list_id = $query['list'] ?? '';
-                $embed_url = 'https://www.youtube-nocookie.com/embed/' . $video_id;
-                if ($list_id) {
-                    $embed_url .= '?list=' . $list_id;
-                }
             }
-            // Đặt title cho iframe: ưu tiên tiêu đề trang, fallback mặc định
-            $iframe_title = sprintf(
-                /* translators: %s: site name */
-                __('Video nổi bật từ %s', 'phucnguyentheme'),
-                get_bloginfo('name')
-            );
-            ?>
-            <div class="video-wrapper mx-auto" style="max-width: 700px;">
-                <div class="ratio ratio-16x9 shadow-lg rounded-3 overflow-hidden">
-                    <iframe 
-                        src="<?php echo esc_url($embed_url); ?>" 
-                        title="<?php echo esc_attr($iframe_title); ?>"
-                        loading="lazy"
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen>
-                    </iframe>
+
+            if ($video_id):
+                // Sử dụng maxresdefault để phù hợp tỷ lệ 16:9, tránh cắt xén không cân đối
+                $thumbnail_url = "https://i.ytimg.com/vi/$video_id/maxresdefault.jpg";
+                // Fallback nếu maxres không tồn tại
+                if (!wp_remote_retrieve_response_code(wp_remote_head($thumbnail_url))) {
+                    $thumbnail_url = "https://i.ytimg.com/vi/$video_id/hqdefault.jpg";
+                }
+                $iframe_title = sprintf(
+                    __('Video nổi bật từ %s', 'phucnguyentheme'),
+                    get_bloginfo('name')
+                );
+                ?>
+                <div class="video-wrapper mx-auto" style="max-width: 700px;">
+                    <div class="ratio ratio-16x9 shadow-lg rounded-3 overflow-hidden youtube-lazy position-relative"
+                        data-id="<?php echo esc_attr($video_id); ?>"
+                        data-list="<?php echo esc_attr($list_id); ?>"
+                        data-title="<?php echo esc_attr($iframe_title); ?>">
+                        <img src="<?php echo esc_url($thumbnail_url); ?>" 
+                            alt="Video thumbnail" class="w-100 h-100 object-cover rounded-3">
+                        <div class="play-button position-absolute top-50 start-50 translate-middle"></div>
+                    </div>
                 </div>
-            </div>
+            <?php endif; ?>
         <?php else: ?>
             <p class="text-center text-muted">
                 <?php _e('Chưa có video được chọn.', 'phucnguyentheme'); ?>
             </p>
         <?php endif; ?>
     </div>
+
 </section>
 
 

@@ -38,12 +38,12 @@ function phucnguyen_theme_scripts() {
     //bootstrap css
     wp_enqueue_style('bootstrap-css', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css', array(), '5.3.3', 'all');
     //bootstrap js
-    wp_enqueue_script('bootstrap-js', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js', array('jquery'), '5.3.3', true);
+    wp_enqueue_script('bootstrap-js', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js', array(), '5.3.3', true);
     //bootstrap icon
     wp_enqueue_style('bootstrap-icons', 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css', array(), '1.11.3', 'all');
     // Thêm custom js
     wp_enqueue_style('custom-css', get_template_directory_uri().'/assets/css/custom.css', [], filemtime(get_template_directory() . '/assets/css/custom.css'));
-    wp_enqueue_script('custom-js', get_theme_file_uri('/assets/js/custom.js'), ['bootstrap-css'], filemtime(get_template_directory() . '/assets/js/custom.js'), true);
+    wp_enqueue_script('custom-js', get_theme_file_uri('/assets/js/custom.js'), [], filemtime(get_template_directory() . '/assets/js/custom.js'), true);
 }
 add_action('wp_enqueue_scripts', 'phucnguyen_theme_scripts');
 
